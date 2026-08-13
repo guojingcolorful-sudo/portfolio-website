@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-white font-sans antialiased;
+    background: radial-gradient(ellipse at 10% 20%, #0f172a 0%, #020617 100%);
+  }
+  .brand-bg {
+    background: radial-gradient(ellipse at 10% 20%, #0f172a 0%, #020617 100%);
+  }
+  .text-brand-primary {
+    color: #38bdf8;
+  }
+  .text-brand-accent {
+    color: #a855f7;
+  }
+  .border-brand-primary {
+    border-color: #38bdf8;
+  }
+  .bg-brand-primary {
+    background-color: #38bdf8;
+  }
+  .shadow-brand-primary {
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+  }
+  .glow-text-primary {
+    text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+  }
+  .glow-text-accent {
+    text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+  }
+  .glass-panel {
+    background: rgba(17, 24, 39, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+}

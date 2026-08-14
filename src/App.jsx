@@ -7,11 +7,11 @@ import {
 
 // ==================== 配置项 ====================
 const CONFIG = {
-  avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-  resumeLink: 'https://example.com/your-resume.pdf',
+  avatar: 'https://bee-reg-ab.imagency.cn/p/e907ac88986addce29cd1748f80fadd5.jpg',
+  resumeLink: 'https://www.kdocs.cn/l/ct0q7IEE357o',
   email: 'guojingcolorful@hotmail.com',
   linkedin: 'https://www.linkedin.com/in/jenny-kwok-590269427',
-  wechatQR: 'https://example.com/wechat-qr.png', 
+  wechatQR: 'https://bee-reg-ab.imagency.cn/p/002ac7ee69b13577485d34bdd2d9d911.jpg', 
 };
 
 // ==================== 国际化词典 ====================
@@ -193,6 +193,15 @@ const DICT = {
       },
     ],
   },
+  works: {
+  title: '作品展示',
+  items: [
+    { img: 'https://bee-reg-ab.imagency.cn/p/a6f539fcb7ab5a16aa40c43f6053b426.png', title: '政务产品原型', desc: '政务服务App高保真原型设计' },
+    { img: 'https://beeimg.us.ci/temp/8832f7c6e65c74770f6ed111a670351d.png', title: '英语学习原型', desc: '英语视听交互设计' },
+    { img: 'https://bee-reg-ab.imagency.cn/p/dc8157af7de977a31fc9df69084b266e.jpg', title: '业务增长全流程', desc: '数字化营销房子图' },
+    { img: 'https://bee-reg-ab.imagency.cn/p/0e86b344da93969b9e23cad7cd7e7d01.jpg', title: 'PMP认证', desc: '项目管理专业人士认证' },
+  ],
+},
   footer: {
     title: '期待共同打造',
     titleHighlight: '有影响力的产品',
@@ -378,6 +387,17 @@ const DICT = {
       },
     ],
   },
+
+ works: {
+  title: 'Portfolio',
+  items: [
+    { img: 'https://bee-reg-ab.imagency.cn/p/a6f539fcb7ab5a16aa40c43f6053b426.png', title: 'Government Service Prototype', desc: 'High-fidelity prototype for citizen-facing government service app' },
+    { img: 'https://beeimg.us.ci/temp/8832f7c6e65c74770f6ed111a670351d.png', title: 'English Learning Prototype', desc: 'Interactive UX design for audio-visual language learning' },
+    { img: 'https://bee-reg-ab.imagency.cn/p/dc8157af7de977a31fc9df69084b266e.jpg', title: 'Business Growth Framework', desc: 'Digital marketing "House of Growth" — full-funnel visualization' },
+    { img: 'https://bee-reg-ab.imagency.cn/p/0e86b344da93969b9e23cad7cd7e7d01.jpg', title: 'PMP Certification', desc: 'Project Management Professional credential' },
+  ],
+},
+  
   footer: {
     title: "Let's build something",
     titleHighlight: 'impactful',
@@ -540,6 +560,24 @@ export default function App() {
         </section>
 
       </main>
+
+      {/* ===== 作品展示 ===== */}
+<section id="works" className="py-24 scroll-mt-20">
+  <h2 className="text-3xl md:text-5xl font-black mb-16 text-center">作品展示</h2>
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {t.works.items.map((item, idx) => (
+      <div key={idx} className="glass-panel rounded-2xl overflow-hidden border border-white/5 hover:border-brand-primary/30 transition-all group">
+        <div className="aspect-[4/3] overflow-hidden bg-black/40">
+          <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        </div>
+        <div className="p-4">
+          <h4 className="font-bold text-sm">{item.title}</h4>
+          <p className="text-xs text-gray-400 mt-1">{item.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* ===== FOOTER ===== */}
       <footer id="footer" className="w-full py-24 px-6 border-t border-white/5 text-center relative">

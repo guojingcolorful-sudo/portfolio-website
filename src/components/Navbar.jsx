@@ -15,7 +15,7 @@ export default function Navbar({ t, lang, onToggleLang }) {
     <FadeIn y={-20} delay={0} duration={0.7}>
       <nav
         aria-label="Main navigation"
-        className="relative z-10 w-full flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8"
+        className="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 md:px-10 py-4 md:py-5 bg-[#0C0C0C]/40 backdrop-blur-md border-b border-white/10"
       >
         <a
           href="#top"

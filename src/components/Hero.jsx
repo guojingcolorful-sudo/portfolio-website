@@ -20,8 +20,8 @@ export default function Hero({ t, lang, onToggleLang }) {
         </FadeIn>
       </div>
 
-      {/* 价值主张标题（移动端为头像右移预留空间，自动换行） */}
-      <div className="relative z-10 px-6 md:px-10 pr-56 sm:pr-0 mt-6 md:mt-4">
+      {/* 价值主张标题（移动端/桌面端均为立绘预留空间，英文自动换行） */}
+      <div className="relative z-10 px-6 md:px-10 pr-56 sm:pr-0 lg:pr-[500px] mt-6 md:mt-4">
         <FadeIn y={20} delay={0.3} duration={0.8}>
           <p className="text-[#D7E2EA] font-medium leading-tight tracking-wide text-[clamp(1.05rem,2.6vw,2.4rem)]">
             {t.hero.title1}
@@ -35,7 +35,7 @@ export default function Hero({ t, lang, onToggleLang }) {
       </div>
 
       {/* 底部信息条 */}
-      <div className="mt-auto flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
+      <div className="relative z-20 mt-auto flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
         <FadeIn y={20} delay={0.35}>
           <p className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px] text-[clamp(0.75rem,1.4vw,1.5rem)]">
             {t.hero.tag}
@@ -46,8 +46,8 @@ export default function Hero({ t, lang, onToggleLang }) {
         </FadeIn>
       </div>
 
-      {/* 磁吸头像：透明背景原图，整体右移避让文字；移动端垂直居中，sm 以上贴底 */}
-      <div className="absolute z-10 right-0 sm:right-[6%] top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 pointer-events-none">
+      {/* 磁吸头像：透明背景原图，整体右移避让文字与 CTA；移动端垂直居中，sm 以上底部抬升 */}
+      <div className="absolute z-10 right-0 sm:right-[6%] top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-28 pointer-events-none">
         <FadeIn y={30} delay={0.6} duration={0.9}>
           <Magnet>
             <img

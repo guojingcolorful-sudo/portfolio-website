@@ -13,10 +13,16 @@ export default function App() {
   const [showWechat, setShowWechat] = useState(false);
   const t = DICT[lang];
 
+  // 切换语言后回到页面顶部重新展示
+  const handleToggleLang = () => {
+    setLang(lang === 'zh' ? 'en' : 'zh');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   return (
     <div className="relative min-h-screen bg-[#0C0C0C] text-[#D7E2EA] font-sans antialiased overflow-x-clip">
       <main>
-        <Hero t={t} lang={lang} onToggleLang={() => setLang(lang === 'zh' ? 'en' : 'zh')} />
+        <Hero t={t} lang={lang} onToggleLang={handleToggleLang} />
         <Marquee lang={lang} />
         <About t={t} />
         <Timeline t={t} />

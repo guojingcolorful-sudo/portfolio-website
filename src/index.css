@@ -2,39 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #0c0c0c;
+  --text-soft: #d7e2ea;
+  --heading-gradient: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  --cta-gradient: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%);
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
 @layer base {
   body {
-    @apply bg-black text-white font-sans antialiased;
-    background: radial-gradient(ellipse at 10% 20%, #0f172a 0%, #020617 100%);
+    background: var(--bg);
+    color: var(--text-soft);
+    font-family: 'Kanit', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
   }
-  .brand-bg {
-    background: radial-gradient(ellipse at 10% 20%, #0f172a 0%, #020617 100%);
+
+  /* 全局可见焦点环（web-design-guidelines） */
+  :focus-visible {
+    outline: 2px solid rgba(215, 226, 234, 0.7);
+    outline-offset: 2px;
   }
-  .text-brand-primary {
-    color: #38bdf8;
+
+  /* 消除移动端双击缩放延迟 */
+  button,
+  a {
+    touch-action: manipulation;
   }
-  .text-brand-accent {
-    color: #a855f7;
+
+  ::selection {
+    background: rgba(182, 0, 168, 0.4);
+    color: #ffffff;
   }
-  .border-brand-primary {
-    border-color: #38bdf8;
+}
+
+@layer components {
+  /* 银色渐变展示标题（参考规范 .hero-heading） */
+  .hero-heading {
+    background: var(--heading-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  .bg-brand-primary {
-    background-color: #38bdf8;
+
+  /* 强调文字：与 CTA 同源的渐变色（单一强调色系统） */
+  .accent-text {
+    background: var(--cta-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  .shadow-brand-primary {
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+
+  /* 主 CTA：渐变胶囊 + 内阴影 + 白色内描边 */
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    background: var(--cta-gradient);
+    box-shadow:
+      0px 4px 4px rgba(181, 1, 167, 0.25),
+      inset 4px 4px 12px #7721b1;
+    outline: 2px solid #ffffff;
+    outline-offset: -3px;
+    color: #ffffff;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    transition: transform 0.2s ease, filter 0.2s ease;
   }
-  .glow-text-primary {
-    text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+  .contact-btn:hover {
+    filter: brightness(1.12);
   }
-  .glow-text-accent {
-    text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+  .contact-btn:active {
+    transform: translateY(1px) scale(0.99);
   }
-  .glass-panel {
-    background: rgba(17, 24, 39, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.05);
+  @media (min-width: 640px) {
+    .contact-btn {
+      padding: 0.875rem 2.5rem;
+      font-size: 0.875rem;
+    }
+  }
+  @media (min-width: 768px) {
+    .contact-btn {
+      padding: 1rem 3rem;
+      font-size: 1rem;
+    }
+  }
+
+  /* 幽灵描边按钮 */
+  .ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 2px solid var(--text-soft);
+    color: var(--text-soft);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.75rem 2rem;
+    font-size: 0.75rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .ghost-btn:hover {
+    background-color: rgba(215, 226, 234, 0.1);
+  }
+  .ghost-btn:active {
+    transform: translateY(1px) scale(0.99);
+  }
+  @media (min-width: 640px) {
+    .ghost-btn {
+      padding: 0.875rem 2.5rem;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+/* 动效降级：尊重系统减弱动态设置 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .contact-btn,
+  .ghost-btn {
+    transition: none;
   }
 }

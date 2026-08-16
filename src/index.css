@@ -5,7 +5,7 @@
 :root {
   --bg: #0c0c0c;
   --text-soft: #d7e2ea;
-  --heading-gradient: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  --heading-gradient: linear-gradient(180deg, #8a94a2 0%, #bbccd7 100%);
   --cta-gradient: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%);
 }
 
@@ -49,9 +49,9 @@ html {
     color: transparent;
   }
 
-  /* 强调文字：与 CTA 同源的渐变色（单一强调色系统） */
+  /* 强调文字：与 CTA 同源的渐变（提亮起止端，保证深底上的可读性） */
   .accent-text {
-    background: var(--cta-gradient);
+    background: linear-gradient(100deg, #d98de6 0%, #c94bd4 35%, #a344d6 70%, #d96a1f 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

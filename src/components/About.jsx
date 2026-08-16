@@ -1,5 +1,4 @@
 import FadeIn from './ui/FadeIn';
-import AnimatedText from './ui/AnimatedText';
 import ContactButton from './ui/ContactButton';
 
 /**
@@ -15,10 +14,11 @@ export default function About({ t }) {
       </FadeIn>
 
       <div className="flex flex-col items-center gap-16 sm:gap-20 md:gap-24">
-        <AnimatedText
-          text={t.about.desc}
-          className="text-[#D7E2EA] font-medium leading-relaxed max-w-[560px] text-[clamp(1rem,2vw,1.35rem)]"
-        />
+        <FadeIn y={20} delay={0.05}>
+          <p className="text-[#D7E2EA] font-medium leading-relaxed max-w-[560px] text-[clamp(1rem,2vw,1.35rem)] whitespace-pre-line">
+            {t.about.desc}
+          </p>
+        </FadeIn>
 
         <FadeIn y={30} delay={0.15}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
@@ -27,7 +27,7 @@ export default function About({ t }) {
                 <span className="font-black text-[clamp(1.6rem,3.4vw,2.8rem)] leading-none text-[#D7E2EA]">
                   {item.value}
                 </span>
-                <span className="text-[#D7E2EA]/60 font-light uppercase tracking-wide text-[clamp(0.65rem,1vw,0.8rem)]">
+                <span className="text-[#D7E2EA]/95 font-normal uppercase tracking-wide text-[clamp(0.65rem,1vw,0.8rem)]">
                   {item.label}
                 </span>
               </div>

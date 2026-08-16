@@ -11,7 +11,7 @@ import FadeIn from './ui/FadeIn';
 
 const ANGLE = [-90, -30, 30, 90, 150, 210]; // 6 个标签角度（顺时针均匀分布）
 const R_LINE = 36;
-const R_LABEL = 47;
+const R_LABEL = 44;
 const INTRO_MS = 3000; // 滑到区块后先展示初始内容的停留时长
 const CYCLE_MS = 1500; // 卡片轮播间隔
 const REST_MS = 2000; // 每轮结束回到初始态的停留时长
@@ -25,7 +25,7 @@ function pos(deg, r) {
 function CircleDiagram({ categories, active, onActivate }) {
   return (
     <div className="flex w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[440px] shrink-0 items-center justify-center self-center">
-      <FadeIn className="w-full aspect-square relative" delay={0.4} duration={0.8} y={0}>
+      <FadeIn className="w-full aspect-square relative p-3" delay={0.4} duration={0.8} y={0}>
         <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" aria-hidden="true">
           <circle cx="50" cy="50" r="30" stroke="#D7E2EA" strokeWidth="0.18" opacity="0.45" fill="none" />
           {categories.map((cat, i) => {
@@ -39,9 +39,34 @@ function CircleDiagram({ categories, active, onActivate }) {
                 x2={x}
                 y2={y}
                 stroke="#D7E2EA"
-                strokeWidth={isActive ? 0.6 : 0.18}
-                opacity={isActive ? 1 : 0.45}
+                strokeWidth={isActive ? 0.6 : 0.22}
+                opacity={isActive ? 1 : 0.65}
                 style={{ transition: 'stroke-width 0.3s, opacity 0.3s' }}
+              />
+            );
+          })}
+          {/* 雷达数据面：连接 6 个锚点，让能力模型有数据可视化的体量感 */}
+          <polygon
+            points={ANGLE.map((deg) => {
+              const { x, y } = pos(deg, R_LINE);
+              return `${x},${y}`;
+            }).join(' ')}
+            fill="rgba(182, 0, 168, 0.07)"
+            stroke="rgba(182, 0, 168, 0.3)"
+            strokeWidth="0.12"
+          />
+          {ANGLE.map((deg, i) => {
+            const { x, y } = pos(deg, R_LINE);
+            const isActive = active === i;
+            return (
+              <circle
+                key={`anchor-${i}`}
+                cx={x}
+                cy={y}
+                r={isActive ? 1 : 0.55}
+                fill="#B600A8"
+                opacity={isActive ? 0.9 : 0.35}
+                style={{ transition: 'opacity 0.3s' }}
               />
             );
           })}
@@ -61,8 +86,8 @@ function CircleDiagram({ categories, active, onActivate }) {
                 left: `${x}%`,
                 top: `${y}%`,
                 transform: 'translate(-50%, -50%)',
-                fontSize: 'clamp(0.8rem, 1.6vw, 1.15rem)',
-                fontWeight: isActive ? 700 : 300,
+                fontSize: 'clamp(0.9rem, 1.7vw, 1.2rem)',
+                fontWeight: isActive ? 700 : 600,
                 transition: 'font-weight 0.25s',
               }}
             >
@@ -91,7 +116,7 @@ function GlitchBlocks() {
       {blocks.map((b, i) => (
         <motion.span
           key={i}
-          className="absolute bg-white block"
+          className="absolute bg-white hidden sm:block"
           style={{ left: b.left, top: b.top, width: b.w, height: b.h }}
           initial={reduce ? false : { scale: 0, opacity: 0 }}
           whileInView={{ scale: 1, opacity: [0, 1, 0.9] }}
@@ -162,13 +187,13 @@ function LeftPanel({ t, categories, active }) {
               <GlitchBlocks />
             </FadeIn>
             <div className="min-w-0 max-w-[420px]">
-              <span className="block text-[#555] font-serif leading-[0.7] text-[3.2rem]">“</span>
+              <span className="block text-[#b8c4d0] font-serif leading-[0.7] text-[3.2rem]">“</span>
               <p className="text-[#D7E2EA]/90 font-normal leading-[1.58] text-[clamp(1.05rem,1.5vw,1.28rem)]">
                 {t.skills.quote}
               </p>
               <div className="mt-8">
                 <div className="text-[1.15rem] font-medium tracking-[0.01em] text-white">{t.skills.quoteBy}</div>
-                <div className="mt-1 text-[0.85rem] tracking-wide text-[#6e6e6e]">{t.skills.quoteRole}</div>
+                <div className="mt-1 text-[0.85rem] tracking-wide text-[#D7E2EA]/75">{t.skills.quoteRole}</div>
               </div>
             </div>
           </motion.div>

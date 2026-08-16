@@ -21,7 +21,7 @@ function Row({ item, index }) {
     <div className="border-t border-[#D7E2EA]/15 py-8 sm:py-10 md:py-12">
       <div className="flex items-start justify-between gap-6 flex-wrap md:flex-nowrap">
         <div className="flex items-start gap-4 sm:gap-6">
-          <span className="font-black leading-none text-[clamp(3rem,10vw,140px)] text-[#D7E2EA]/25">
+          <span className="font-black leading-none text-[clamp(3rem,10vw,140px)] text-[#D7E2EA]/35">
             {String(index + 1).padStart(2, '0')}
           </span>
           <div className="flex flex-col gap-1 pt-2">
@@ -29,20 +29,20 @@ function Row({ item, index }) {
               {item.company}
             </h3>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[#D7E2EA]/60 font-light uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
+              <span className="text-[#D7E2EA]/90 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
                 {item.rank}
               </span>
-              <span className="text-[#D7E2EA]/40 font-light uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
+              <span className="text-[#D7E2EA]/85 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
                 {item.role}
               </span>
             </div>
           </div>
         </div>
-        <span className="text-[#D7E2EA]/50 font-light uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)] pt-2 whitespace-nowrap">
+        <span className="text-[#D7E2EA]/95 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)] pt-2 whitespace-nowrap max-sm:w-full">
           {item.period}
         </span>
       </div>
-      <p className="mt-5 text-[#D7E2EA]/70 font-light leading-relaxed max-w-2xl text-[clamp(0.85rem,1.6vw,1.25rem)]">
+      <p className="mt-5 text-[#D7E2EA]/95 font-normal leading-relaxed max-w-2xl text-[clamp(0.85rem,1.6vw,1.25rem)]">
         {item.description}
       </p>
     </div>

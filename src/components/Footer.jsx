@@ -19,7 +19,7 @@ export default function Footer({ t, showWechat, onToggleWechat }) {
         </FadeIn>
 
         <FadeIn y={20} delay={0.1}>
-          <p className="text-[#D7E2EA]/70 font-light text-[clamp(0.9rem,1.6vw,1.15rem)] max-w-xl">
+          <p className="text-[#D7E2EA]/90 font-normal text-[clamp(0.9rem,1.6vw,1.15rem)] max-w-xl">
             {t.footer.subtitle}
           </p>
         </FadeIn>
@@ -28,12 +28,12 @@ export default function Footer({ t, showWechat, onToggleWechat }) {
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 flex-wrap">
             <ContactButton href={`mailto:${CONFIG.email}`}>{t.footer.email}</ContactButton>
             <GhostButton href={CONFIG.resumeLink}>{t.footer.download}</GhostButton>
-            <GhostButton href={CONFIG.linkedin}>LinkedIn</GhostButton>
+            <GhostButton href={CONFIG.linkedin}>{t.footer.linkedin}</GhostButton>
             <GhostButton onClick={onToggleWechat}>{t.footer.wechat}</GhostButton>
           </div>
         </FadeIn>
 
-        <div className="text-[#D7E2EA]/40 text-sm font-mono">
+        <div className="text-[#D7E2EA]/80 text-sm font-mono">
           © {new Date().getFullYear()} Jing Guo. All rights reserved.
         </div>
       </div>

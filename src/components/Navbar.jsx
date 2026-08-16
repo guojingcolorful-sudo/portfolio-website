@@ -44,14 +44,14 @@ export default function Navbar({ t, lang, onToggleLang }) {
         >
           <span
             className={`w-8 text-center text-[11px] font-mono font-bold transition-colors ${
-              lang === 'en' ? 'text-black bg-[#D7E2EA] rounded-full py-1' : 'text-[#D7E2EA]/60'
+              lang === 'en' ? 'text-black bg-[#D7E2EA] rounded-full py-1' : 'text-[#D7E2EA]/90'
             }`}
           >
             EN
           </span>
           <span
             className={`w-8 text-center text-[11px] font-mono font-bold transition-colors ${
-              lang === 'zh' ? 'text-black bg-[#D7E2EA] rounded-full py-1' : 'text-[#D7E2EA]/60'
+              lang === 'zh' ? 'text-black bg-[#D7E2EA] rounded-full py-1' : 'text-[#D7E2EA]/90'
             }`}
           >
             ZH

@@ -3,7 +3,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import FadeIn from './ui/FadeIn';
 
 /**
- * SMART 四要素：lg 用于堆叠卡片主舞台（大字号展示），compact 用于文本次要项目行
+ * SMART 五要素（S/M/A/R/T）：lg 用于堆叠卡片主舞台（大字号展示），compact 用于文本次要项目行
+ * T（Time-bound）横跨整行，作为案例的时间约束收束
  */
 function SmartBlock({ project, size = 'compact' }) {
   const isLg = size === 'lg';
@@ -16,7 +17,7 @@ function SmartBlock({ project, size = 'compact' }) {
   return (
     <div
       className={`grid grid-cols-1 sm:grid-cols-2 ${
-        isLg ? 'gap-x-8 md:gap-x-14 gap-y-3 sm:gap-y-6 md:gap-y-10' : 'gap-x-8 gap-y-3'
+        isLg ? 'gap-x-8 md:gap-x-14 gap-y-3 sm:gap-y-6 md:gap-y-7' : 'gap-x-8 gap-y-3'
       }`}
     >
       {rows.map((row) => (
@@ -31,14 +32,38 @@ function SmartBlock({ project, size = 'compact' }) {
           <p
             className={`leading-relaxed ${
               isLg
-                ? 'font-normal text-[#D7E2EA] text-[clamp(0.85rem,1.6vw,1.3rem)]'
-                : 'font-light text-[#D7E2EA]/90 text-[clamp(0.78rem,1.3vw,1rem)]'
+                ? 'font-normal text-[#D7E2EA] text-[clamp(0.85rem,1.6vw,1.3rem)] pt-1 lg:pt-2'
+                : 'font-light text-[#D7E2EA]/95 text-[clamp(0.78rem,1.3vw,1rem)]'
             }`}
           >
             {row.text}
           </p>
         </div>
       ))}
+      {project.timing && (
+        <div
+          className={`sm:col-span-2 flex items-start border-t border-[#D7E2EA]/10 pt-3 sm:pt-4 ${
+            isLg ? 'gap-4 md:gap-6' : 'gap-3'
+          }`}
+        >
+          <span
+            className={`accent-text font-black leading-none shrink-0 ${
+              isLg ? 'text-[1.4rem] sm:text-[clamp(1.6rem,3.2vw,3rem)]' : 'leading-snug'
+            }`}
+          >
+            T
+          </span>
+          <p
+            className={`leading-relaxed ${
+              isLg
+                ? 'font-normal text-[#D7E2EA] text-[clamp(0.85rem,1.6vw,1.3rem)] pt-1 lg:pt-2'
+                : 'font-light text-[#D7E2EA]/95 text-[clamp(0.78rem,1.3vw,1rem)]'
+            }`}
+          >
+            {project.timing}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
@@ -53,7 +78,7 @@ function StackCard({ project, i, total, progress, reduce }) {
     <div className="sticky top-24 md:top-32 min-h-[85vh] sm:h-[85vh] overflow-hidden">
       <motion.div
         style={{ scale, top: `${i * 28}px` }}
-        className="relative h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-5 sm:p-6 md:p-8 flex flex-col origin-top"
+        className="relative h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] px-5 sm:px-6 md:px-8 pt-5 sm:pt-6 md:pt-8 pb-8 sm:pb-10 md:pb-12 flex flex-col origin-top"
       >
         {/* 顶部信息行：编号 · 类别 · 标签 */}
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -69,12 +94,12 @@ function StackCard({ project, i, total, progress, reduce }) {
         </div>
 
         {/* 展示级项目名：卡片主标题，顶部信息行下延展铺开 */}
-        <h3 className="mt-3 sm:mt-5 hero-heading font-black uppercase leading-[1.05] tracking-tight text-[clamp(1.5rem,5.5vw,4.5rem)]">
+        <h3 className="mt-3 sm:mt-5 hero-heading font-black uppercase leading-[1.1] tracking-tight text-[clamp(1.5rem,5.5vw,4.5rem)]">
           {project.name}
         </h3>
 
         {/* SMART 案例正文：紧随标题的阅读流，下部留白为海报式收尾（无图片） */}
-        <div className="mt-5 sm:mt-8 md:mt-10">
+        <div className="mt-5 sm:mt-8">
           <SmartBlock project={project} size="lg" />
         </div>
       </motion.div>
@@ -116,13 +141,13 @@ export default function Projects({ t }) {
           <FadeIn key={project.name} y={20} delay={i * 0.08}>
             <div className="py-8 border-t border-[#D7E2EA]/15">
               <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                <span className="font-black leading-none text-[clamp(1.6rem,3.4vw,2.6rem)] text-[#D7E2EA]/30">
+                <span className="font-black leading-none text-[clamp(1.6rem,3.4vw,2.6rem)] text-[#D7E2EA]/40">
                   {String(i + 4).padStart(2, '0')}
                 </span>
                 <h3 className="font-medium uppercase tracking-wide text-[clamp(0.95rem,1.8vw,1.3rem)] text-[#D7E2EA]">
                   {project.name}
                 </h3>
-                <span className="text-[#D7E2EA]/45 font-light uppercase tracking-wider text-[clamp(0.6rem,1vw,0.8rem)]">
+                <span className="text-[#D7E2EA]/75 font-light uppercase tracking-wider text-[clamp(0.6rem,1vw,0.8rem)]">
                   {project.tag}
                 </span>
               </div>

@@ -46,10 +46,10 @@ export default function Hero({ t, lang, onToggleLang }) {
         </FadeIn>
       </div>
 
-      {/* 磁吸立绘：初始居中偏右、位于文字与按钮带之间靠下，层级低于所有文字与按钮，不挡任何交互 */}
-      <div className="absolute z-0 left-[54%] -translate-x-1/2 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 pointer-events-none">
+      {/* 磁吸立绘：初始居中偏右（约 3cm），活动范围可覆盖「联系我」下方右侧，层级低于所有文字与按钮，不拦截任何点击 */}
+      <div className="absolute z-0 left-[62%] -translate-x-1/2 top-1/2 -translate-y-1/2 sm:top-auto sm:translate-y-0 sm:bottom-0 pointer-events-none">
         <FadeIn y={30} delay={0.6} duration={0.9}>
-          <Magnet strength={2.5} padding={220}>
+          <Magnet strength={2.5} padding={450}>
             <img
               src={CONFIG.avatarHero}
               alt={t.meta.portraitAlt}

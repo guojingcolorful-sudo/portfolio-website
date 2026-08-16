@@ -1,22 +1,23 @@
 import avatarImg from '../assets/img/avatar.jpg';
 import avatarHeroImg from '../assets/img/avatar-hero.png';
-import govMarquee from '../assets/img/gov-marquee.jpg';
 import govCol1a from '../assets/img/gov-col1a.jpg';
 import govCol1b from '../assets/img/gov-col1b.jpg';
 import govCol2 from '../assets/img/gov-col2.jpg';
-import engMarquee from '../assets/img/eng-marquee.jpg';
 import engCol1a from '../assets/img/eng-col1a.jpg';
-import growMarquee from '../assets/img/grow-marquee.jpg';
 import growCol1a from '../assets/img/grow-col1a.jpg';
-import pmpMarquee from '../assets/img/pmp-marquee.jpg';
 import pmpCol1b from '../assets/img/pmp-col1b.jpg';
-import innoMarquee from '../assets/img/inno-marquee.jpg';
-import omniMarquee from '../assets/img/omni-marquee.jpg';
 import omniCol2 from '../assets/img/omni-col2.jpg';
-import cdpMarquee from '../assets/img/cdp-marquee.jpg';
 import cdpCol2 from '../assets/img/cdp-col2.jpg';
 import ivrCol1b from '../assets/img/ivr-col1b.jpg';
 import wechatQr from '../assets/img/wechat.jpg';
+// 履历区漂移照片（自然比例裸图）
+import govMid from '../assets/img/gov-mid.jpg';
+import engMid from '../assets/img/eng-mid.png';
+import growMid from '../assets/img/grow-mid.jpg';
+import pmpMid from '../assets/img/pmp-mid.jpg';
+import innoMid from '../assets/img/inno-mid.jpg';
+import omniMid from '../assets/img/omni-mid.jpg';
+import cdpMid from '../assets/img/cdp-mid.jpg';
 
 // ==================== 站点配置 ====================
 export const CONFIG = {
@@ -28,21 +29,18 @@ export const CONFIG = {
   wechatQR: wechatQr,
 };
 
-// ==================== 跑马灯图片 ====================
-export const MARQUEE_IMAGES = {
-  row1: [
-    { img: govMarquee, zh: '政务产品原型', en: 'Government service prototype' },
-    { img: engMarquee, zh: '英语学习原型', en: 'English learning prototype' },
-    { img: growMarquee, zh: '业务增长全流程', en: 'Business growth framework' },
-    { img: pmpMarquee, zh: 'PMP 认证', en: 'PMP certification' },
-    { img: innoMarquee, zh: '创新产品 0-1', en: '0-to-1 product innovation' },
+// ==================== 履历区漂移照片（两列，随滚动上漂） ====================
+export const DRIFT_PHOTOS = {
+  left: [
+    { img: govMid, w: 800, h: 587, zh: '政务产品原型', en: 'Government service prototype' },
+    { img: engMid, w: 800, h: 1583, zh: '英语学习原型', en: 'English learning prototype' },
+    { img: innoMid, w: 800, h: 533, zh: '创新产品 0-1', en: '0-to-1 product innovation' },
   ],
-  row2: [
-    { img: omniMarquee, zh: '全渠道经营', en: 'Omnichannel engagement' },
-    { img: growMarquee, zh: '业务增长全流程', en: 'Business growth framework' },
-    { img: govMarquee, zh: '政务产品原型', en: 'Government service prototype' },
-    { img: cdpMarquee, zh: 'CDP 营销中台', en: 'CDP marketing mid-platform' },
-    { img: engMarquee, zh: '英语学习原型', en: 'English learning prototype' },
+  right: [
+    { img: omniMid, w: 800, h: 570, zh: '全渠道经营', en: 'Omnichannel engagement' },
+    { img: cdpMid, w: 800, h: 533, zh: 'CDP 营销中台', en: 'CDP marketing mid-platform' },
+    { img: growMid, w: 800, h: 404, zh: '业务增长全流程', en: 'Business growth framework' },
+    { img: pmpMid, w: 800, h: 618, zh: 'PMP 认证', en: 'PMP certification' },
   ],
 };
 
@@ -417,7 +415,6 @@ export const DICT = {
       ],
     },
     footer: {
-      title: "Let's build something",
       titleHighlight: 'impactful',
       subtitle: 'Open for Senior/Lead Product Management and Growth roles globally.',
       email: 'Email Me',

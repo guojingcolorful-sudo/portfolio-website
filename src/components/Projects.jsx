@@ -2,7 +2,11 @@ import { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import FadeIn from './ui/FadeIn';
 
-function SmartBlock({ project }) {
+/**
+ * SMART 四要素：lg 用于堆叠卡片主舞台（大字号展示），compact 用于文本次要项目行
+ */
+function SmartBlock({ project, size = 'compact' }) {
+  const isLg = size === 'lg';
   const rows = [
     { key: 'S', text: project.situation },
     { key: 'M', text: project.methodology },
@@ -10,11 +14,27 @@ function SmartBlock({ project }) {
     { key: 'R', text: project.result },
   ];
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+    <div
+      className={`grid grid-cols-1 sm:grid-cols-2 ${
+        isLg ? 'gap-x-8 md:gap-x-14 gap-y-3 sm:gap-y-6 md:gap-y-10' : 'gap-x-8 gap-y-3'
+      }`}
+    >
       {rows.map((row) => (
-        <div key={row.key} className="flex gap-3">
-          <span className="accent-text font-black leading-snug shrink-0">{row.key}</span>
-          <p className="text-[#D7E2EA]/75 font-light leading-relaxed text-[clamp(0.78rem,1.3vw,1rem)]">
+        <div key={row.key} className={`flex items-start ${isLg ? 'gap-4 md:gap-6' : 'gap-3'}`}>
+          <span
+            className={`accent-text font-black leading-none shrink-0 ${
+              isLg ? 'text-[1.4rem] sm:text-[clamp(1.6rem,3.2vw,3rem)]' : 'leading-snug'
+            }`}
+          >
+            {row.key}
+          </span>
+          <p
+            className={`leading-relaxed ${
+              isLg
+                ? 'font-normal text-[#D7E2EA] text-[clamp(0.85rem,1.6vw,1.3rem)]'
+                : 'font-light text-[#D7E2EA]/90 text-[clamp(0.78rem,1.3vw,1rem)]'
+            }`}
+          >
             {row.text}
           </p>
         </div>
@@ -30,43 +50,32 @@ function StackCard({ project, i, total, progress, reduce }) {
   const scale = useTransform(progress, range, reduce ? [targetScale, targetScale] : [1, targetScale]);
 
   return (
-    <div className="sticky top-24 md:top-32 h-[85vh] overflow-hidden">
+    <div className="sticky top-24 md:top-32 min-h-[85vh] sm:h-[85vh] overflow-hidden">
       <motion.div
         style={{ scale, top: `${i * 28}px` }}
         className="relative h-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-5 sm:p-6 md:p-8 flex flex-col origin-top"
       >
-        {/* 顶部信息行 */}
+        {/* 顶部信息行：编号 · 类别 · 标签 */}
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <span className="font-black leading-none text-[clamp(2rem,5vw,4rem)] text-[#D7E2EA]">
             {String(i + 1).padStart(2, '0')}
           </span>
-          <span className="text-[#D7E2EA]/60 font-light uppercase tracking-wider text-[clamp(0.65rem,1.3vw,1rem)]">
+          <span className="text-[#D7E2EA]/90 font-normal uppercase tracking-wider text-[clamp(0.75rem,1.5vw,1.1rem)]">
             {project.category}
           </span>
-          <h3 className="font-medium uppercase tracking-wide text-[clamp(1.1rem,2.6vw,2.2rem)] text-[#D7E2EA]">
-            {project.name}
-          </h3>
-          <span className="ml-auto text-[#D7E2EA]/50 font-light uppercase tracking-widest text-[clamp(0.6rem,1.1vw,0.85rem)]">
+          <span className="ml-auto text-[#D7E2EA] font-normal uppercase tracking-wider text-[clamp(0.72rem,1.3vw,1rem)]">
             {project.tag}
           </span>
         </div>
 
-        {/* SMART 案例正文 */}
-        <div className="mt-4 sm:mt-6">
-          <SmartBlock project={project} />
-        </div>
+        {/* 展示级项目名：卡片主标题，顶部信息行下延展铺开 */}
+        <h3 className="mt-3 sm:mt-5 hero-heading font-black uppercase leading-[1.05] tracking-tight text-[clamp(1.5rem,5.5vw,4.5rem)]">
+          {project.name}
+        </h3>
 
-        {/* 单张项目图 */}
-        <div className="mt-auto pt-4 sm:pt-5">
-          <img
-            src={project.images.col2}
-            alt={project.name}
-            width={800}
-            height={320}
-            loading="lazy"
-            decoding="async"
-            className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] h-[clamp(130px,18vh,230px)]"
-          />
+        {/* SMART 案例正文：紧随标题的阅读流，下部留白为海报式收尾（无图片） */}
+        <div className="mt-5 sm:mt-8 md:mt-10">
+          <SmartBlock project={project} size="lg" />
         </div>
       </motion.div>
     </div>

@@ -96,6 +96,84 @@ html {
     }
   }
 
+  /* 照片卡：圆弧光边 + 紫品红呼吸光晕 + 点击脉冲（参考 shadowAnimation，适配站色 CTA 渐变体系） */
+  .photo-card {
+    position: relative;
+    border-radius: 10%;
+  }
+
+  .photo-card img {
+    border-radius: 10%;
+    box-shadow:
+      0 0 0 1.5px rgba(219, 38, 219, 0.3),
+      0 10px 34px rgba(137, 24, 131, 0.35),
+      -18px 18px 44px rgba(118, 33, 176, 0.22);
+  }
+
+  /* 光晕：照片后方的紫品红径向辉光，呼吸节奏 */
+  .photo-card::before {
+    content: "";
+    position: absolute;
+    inset: -16px;
+    border-radius: 13%;
+    background: radial-gradient(
+      closest-side,
+      rgba(182, 0, 168, 0.3),
+      rgba(118, 33, 176, 0.14) 45%,
+      transparent 72%
+    );
+    filter: blur(12px);
+    opacity: 0.65;
+    animation: photoGlow 5s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  @keyframes photoGlow {
+    0% {
+      opacity: 0.5;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.5;
+    }
+  }
+
+  .photo-card:hover::before {
+    opacity: 1;
+  }
+
+  .photo-card:active img {
+    transform: scale(0.97);
+  }
+
+  /* 点击脉冲：环形光自照片边缘向外扩散 */
+  .photo-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 10%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .photo-card.clicked::after {
+    animation: photoClickPulse 0.5s ease-out;
+  }
+
+  @keyframes photoClickPulse {
+    0% {
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(219, 38, 219, 0.7);
+    }
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 0 54px rgba(219, 38, 219, 0);
+    }
+  }
+
   /* 幽灵描边按钮 */
   .ghost-btn {
     display: inline-flex;
@@ -132,5 +210,9 @@ html {
   .contact-btn,
   .ghost-btn {
     transition: none;
+  }
+  .photo-card::before,
+  .photo-card.clicked::after {
+    animation: none;
   }
 }

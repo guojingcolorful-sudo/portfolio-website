@@ -19,7 +19,7 @@ function Row({ item, index, compact = false }) {
   return (
     <div
       className={`border-t border-[#D7E2EA]/15 ${
-        compact ? 'py-3 md:py-4' : 'py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3'
+        compact ? 'py-6 sm:py-8 md:py-10 [@media(max-height:820px)]:py-3' : 'py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3'
       }`}
     >
       <div className="flex items-start justify-between gap-6 flex-wrap md:flex-nowrap">
@@ -27,7 +27,7 @@ function Row({ item, index, compact = false }) {
           <span
             className={`font-black leading-none text-[#D7E2EA]/35 ${
               compact
-                ? 'text-[clamp(2.2rem,6vw,104px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
+                ? 'text-[clamp(2rem,5vw,84px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
                 : 'text-[clamp(3rem,10vw,140px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
             }`}
           >
@@ -78,7 +78,7 @@ function Row({ item, index, compact = false }) {
       <p
         className={`text-[#D7E2EA]/95 font-normal max-w-2xl ${
           compact
-            ? 'text-[clamp(0.75rem,1.3vw,0.95rem)] leading-normal mt-3'
+            ? 'text-[clamp(0.75rem,1.3vw,0.95rem)] leading-normal mt-3 [@media(max-height:820px)]:text-[clamp(0.7rem,1.2vw,0.9rem)]'
             : 'leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:text-[clamp(0.72rem,1.4vw,1rem)] [@media(max-height:820px)]:leading-normal'
         }`}
       >

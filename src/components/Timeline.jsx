@@ -5,40 +5,83 @@ import FadeIn from './ui/FadeIn';
 import Lightbox from './ui/Lightbox';
 
 /**
- * 职业履历（保留原始标题与文字大小/位置）+ 照片漂移层：
- * - 履历 01-04 保持正常文档流，03 与 04 之间无任何间隔
- * - 照片以块状两列浮于文字之上，随区块滚动依次自下而上滑过（右列更快形成纵深）
+ * 职业履历（保留原始标题与文字大小/位置）+ 02-04 钉住视窗照片漂移层：
+ * - 从「02 顶部」到「04 底部」整体钉住（紧凑排版，三条履历同屏可见）
+ * - 钉住期间照片在文字上方随滚动依次上漂（右列更快形成纵深）
  * - 照片可点击放大、悬停放大、圆弧光边；减弱动态时静态双列展示
  */
 
+// 钉住阶段的总滚动距离（照片漂移序列长度）
+const PIN_SCROLL = 'h-[calc(100dvh+100vh)]';
+
 /** 履历单行（原始版式：编号 / 公司 / 职级 / 时间 / 描述，大小与间距不变） */
-function Row({ item, index }) {
+function Row({ item, index, compact = false }) {
   return (
-    <div className="border-t border-[#D7E2EA]/15 py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3">
+    <div
+      className={`border-t border-[#D7E2EA]/15 ${
+        compact ? 'py-3 md:py-4' : 'py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3'
+      }`}
+    >
       <div className="flex items-start justify-between gap-6 flex-wrap md:flex-nowrap">
         <div className="flex items-start gap-4 sm:gap-6">
-          <span className="font-black leading-none text-[clamp(3rem,10vw,140px)] text-[#D7E2EA]/35 [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]">
+          <span
+            className={`font-black leading-none text-[#D7E2EA]/35 ${
+              compact
+                ? 'text-[clamp(2.2rem,6vw,104px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
+                : 'text-[clamp(3rem,10vw,140px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
+            }`}
+          >
             {String(index + 1).padStart(2, '0')}
           </span>
           <div className="flex flex-col gap-1 pt-2">
-            <h3 className="font-medium uppercase tracking-wide text-[clamp(1rem,2.2vw,2.1rem)] text-[#D7E2EA] [@media(max-height:820px)]:text-[clamp(0.85rem,2vw,1.6rem)]">
+            <h3
+              className={`font-medium uppercase tracking-wide text-[#D7E2EA] ${
+                compact
+                  ? 'text-[clamp(0.9rem,1.8vw,1.5rem)]'
+                  : 'text-[clamp(1rem,2.2vw,2.1rem)] [@media(max-height:820px)]:text-[clamp(0.85rem,2vw,1.6rem)]'
+              }`}
+            >
               {item.company}
             </h3>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[#D7E2EA]/90 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
+              <span
+                className={`text-[#D7E2EA]/90 font-normal uppercase tracking-wider ${
+                  compact
+                    ? 'text-[clamp(0.62rem,1vw,0.8rem)]'
+                    : 'text-[clamp(0.7rem,1.2vw,0.95rem)]'
+                }`}
+              >
                 {item.rank}
               </span>
-              <span className="text-[#D7E2EA]/85 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
+              <span
+                className={`text-[#D7E2EA]/85 font-normal uppercase tracking-wider ${
+                  compact
+                    ? 'text-[clamp(0.62rem,1vw,0.8rem)]'
+                    : 'text-[clamp(0.7rem,1.2vw,0.95rem)]'
+                }`}
+              >
                 {item.role}
               </span>
             </div>
           </div>
         </div>
-        <span className="text-[#D7E2EA]/95 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)] pt-2 whitespace-nowrap max-sm:w-full">
+        <span
+          className={`text-[#D7E2EA]/95 font-normal uppercase tracking-wider whitespace-nowrap max-sm:w-full ${
+            compact
+              ? 'text-[clamp(0.62rem,1vw,0.8rem)] pt-2'
+              : 'text-[clamp(0.7rem,1.2vw,0.95rem)] pt-2'
+          }`}
+        >
           {item.period}
         </span>
       </div>
-      <p className="mt-5 text-[#D7E2EA]/95 font-normal leading-relaxed max-w-2xl text-[clamp(0.85rem,1.6vw,1.25rem)] [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:text-[clamp(0.72rem,1.4vw,1rem)] [@media(max-height:820px)]:leading-normal">
+      <p
+        className={`text-[#D7E2EA]/95 font-normal max-w-2xl ${
+          compact
+            ? 'text-[clamp(0.75rem,1.3vw,0.95rem)] leading-normal mt-3'
+            : 'leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:text-[clamp(0.72rem,1.4vw,1rem)] [@media(max-height:820px)]:leading-normal'
+        }`}
+      >
         {item.description}
       </p>
     </div>
@@ -151,10 +194,10 @@ function StaticPhoto({ photo, lang, onOpen }) {
 export default function Timeline({ t, lang }) {
   const [lightbox, setLightbox] = useState(null);
   const reduce = useReducedMotion();
-  const sectionRef = useRef(null);
+  const wrapRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
+    target: wrapRef,
+    offset: ['start start', 'end end'],
   });
   const items = t.timeline.items;
   const [first, second, third, fourth] = items;
@@ -162,8 +205,7 @@ export default function Timeline({ t, lang }) {
   return (
     <section
       id="timeline"
-      ref={sectionRef}
-      className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 scroll-mt-20 overflow-hidden"
+      className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 scroll-mt-20"
     >
       <FadeIn y={40} delay={0}>
         <h2 className="hero-heading font-black uppercase leading-none tracking-tight text-[clamp(3rem,12vw,160px)] mb-16 sm:mb-20 md:mb-28">
@@ -171,53 +213,72 @@ export default function Timeline({ t, lang }) {
         </h2>
       </FadeIn>
 
-      {/* 照片漂移层：浮于履历文字之上，随区块滚动依次上滑（无钉住，无间隔） */}
-      {!reduce && (
-        <div className="absolute inset-0 z-20 pointer-events-none">
-          {DRIFT_PHOTOS.left.map((p, i) => (
-            <DriftPhoto
-              key={p.zh}
-              photo={p}
-              lang={lang}
-              index={i}
-              total={DRIFT_PHOTOS.left.length}
-              side="left"
-              progress={scrollYProgress}
-              onOpen={setLightbox}
-            />
-          ))}
-          {DRIFT_PHOTOS.right.map((p, i) => (
-            <DriftPhoto
-              key={p.zh}
-              photo={p}
-              lang={lang}
-              index={i}
-              total={DRIFT_PHOTOS.right.length}
-              side="right"
-              progress={scrollYProgress}
-              onOpen={setLightbox}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* 履历 01-04：正常文档流，无钉住 */}
+      {/* 01：正常文档流 */}
       <div className="relative z-10 max-w-5xl mx-auto">
         <FadeIn y={30} delay={0}>
           <Row item={first} index={0} />
         </FadeIn>
-        <FadeIn y={30} delay={0.05}>
-          <Row item={second} index={1} />
-        </FadeIn>
-        <FadeIn y={30} delay={0.1}>
-          <Row item={third} index={2} />
-        </FadeIn>
-        <FadeIn y={30} delay={0.15}>
-          <Row item={fourth} index={3} />
-        </FadeIn>
+      </div>
+
+      {/* 02-04 钉住视窗：三条履历紧凑同屏，照片在文字上方随滚动上漂 */}
+      <div ref={wrapRef} className={reduce ? 'relative' : `relative ${PIN_SCROLL}`}>
+        <div
+          className={
+            reduce
+              ? 'relative'
+              : 'sticky top-0 h-[100dvh] overflow-hidden pt-[84px] sm:pt-[92px]'
+          }
+        >
+          {/* 钉住带：02 顶部 → 04 底部，超出部分裁剪 */}
+          <div className="relative overflow-hidden">
+            <div className="relative z-10 max-w-5xl mx-auto">
+              <FadeIn y={30} delay={0}>
+                <Row item={second} index={1} compact />
+              </FadeIn>
+              <FadeIn y={30} delay={0.05}>
+                <Row item={third} index={2} compact />
+              </FadeIn>
+              {/* 移动端三行英文描述放不进视口：04 在移动端回到正常文档流 */}
+              <div className="hidden sm:block">
+                <FadeIn y={30} delay={0.1}>
+                  <Row item={fourth} index={3} compact />
+                </FadeIn>
+              </div>
+            </div>
+
+            {!reduce && (
+              <div className="absolute inset-0 z-20">
+                {DRIFT_PHOTOS.left.map((p, i) => (
+                  <DriftPhoto
+                    key={p.zh}
+                    photo={p}
+                    lang={lang}
+                    index={i}
+                    total={DRIFT_PHOTOS.left.length}
+                    side="left"
+                    progress={scrollYProgress}
+                    onOpen={setLightbox}
+                  />
+                ))}
+                {DRIFT_PHOTOS.right.map((p, i) => (
+                  <DriftPhoto
+                    key={p.zh}
+                    photo={p}
+                    lang={lang}
+                    index={i}
+                    total={DRIFT_PHOTOS.right.length}
+                    side="right"
+                    progress={scrollYProgress}
+                    onOpen={setLightbox}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
 
         {reduce && (
-          <div className="grid grid-cols-2 gap-4 py-6">
+          <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-2 gap-4 py-6">
             <div className="flex flex-col gap-4">
               {DRIFT_PHOTOS.left.map((p) => (
                 <StaticPhoto key={p.zh} photo={p} lang={lang} onOpen={setLightbox} />
@@ -230,6 +291,13 @@ export default function Timeline({ t, lang }) {
             </div>
           </div>
         )}
+      </div>
+
+      {/* 移动端：04 回到正常文档流（钉住带只含 02-03） */}
+      <div className="sm:hidden relative z-10 max-w-5xl mx-auto">
+        <FadeIn y={30} delay={0}>
+          <Row item={fourth} index={3} />
+        </FadeIn>
       </div>
 
       {lightbox && <Lightbox item={lightbox} onClose={() => setLightbox(null)} />}

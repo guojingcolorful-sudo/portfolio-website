@@ -19,7 +19,7 @@ function Row({ item, index, compact = false }) {
   return (
     <div
       className={`border-t border-[#D7E2EA]/15 ${
-        compact ? 'py-6 sm:py-8 md:py-10 [@media(max-height:820px)]:py-3' : 'py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3'
+        compact ? 'py-4 sm:py-5 md:py-6 [@media(max-height:820px)]:py-3' : 'py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3'
       }`}
     >
       <div className="flex items-start justify-between gap-6 flex-wrap md:flex-nowrap">
@@ -27,7 +27,7 @@ function Row({ item, index, compact = false }) {
           <span
             className={`font-black leading-none text-[#D7E2EA]/35 ${
               compact
-                ? 'text-[clamp(2rem,5vw,84px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
+                ? 'text-[clamp(1.8rem,4.5vw,72px)] [@media(max-height:820px)]:text-[clamp(1.6rem,6vw,80px)]'
                 : 'text-[clamp(3rem,10vw,140px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
             }`}
           >
@@ -78,7 +78,7 @@ function Row({ item, index, compact = false }) {
       <p
         className={`text-[#D7E2EA]/95 font-normal max-w-2xl ${
           compact
-            ? 'text-[clamp(0.75rem,1.3vw,0.95rem)] leading-normal mt-3 [@media(max-height:820px)]:text-[clamp(0.7rem,1.2vw,0.9rem)]'
+            ? 'text-[clamp(0.7rem,1.2vw,0.9rem)] leading-normal mt-3 [@media(max-height:820px)]:text-[clamp(0.6rem,1vw,0.8rem)]'
             : 'leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:text-[clamp(0.72rem,1.4vw,1rem)] [@media(max-height:820px)]:leading-normal'
         }`}
       >
@@ -221,17 +221,17 @@ export default function Timeline({ t, lang }) {
       </div>
 
       {/* 02-04 钉住视窗：三条履历紧凑同屏，照片在文字上方随滚动上漂 */}
-      <div ref={wrapRef} className={reduce ? 'relative' : `relative ${PIN_SCROLL}`}>
+      <div ref={wrapRef} className={reduce ? 'relative' : `relative ${PIN_SCROLL} max-[340px]:h-auto`}>
         <div
           className={
             reduce
               ? 'relative'
-              : 'sticky top-0 h-[100dvh] overflow-hidden pt-[84px] sm:pt-[92px]'
+              : 'sticky top-0 h-[100dvh] overflow-hidden pt-[84px] sm:pt-[92px] max-[340px]:static max-[340px]:h-auto max-[340px]:overflow-visible max-[340px]:pt-0'
           }
         >
           {/* 钉住带：02 顶部 → 04 底部，超出部分裁剪 */}
-          <div className="relative overflow-hidden">
-            <div className="relative z-10 max-w-5xl mx-auto">
+          <div className={`relative overflow-hidden ${reduce ? '' : 'h-[calc(100dvh-84px)] sm:h-[calc(100dvh-92px)] max-[340px]:h-auto'}`}>
+            <div className={`relative z-10 max-w-5xl mx-auto ${reduce ? '' : 'h-full flex flex-col justify-between max-[340px]:h-auto'}`}>
               <FadeIn y={30} delay={0}>
                 <Row item={second} index={1} compact />
               </FadeIn>

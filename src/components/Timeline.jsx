@@ -15,83 +15,39 @@ import Lightbox from './ui/Lightbox';
 const PIN_SCROLL = 'h-[calc(100dvh+100vh)]';
 
 /** 履历单行（原始版式：编号 / 公司 / 职级 / 时间 / 描述，大小与间距不变） */
-function Row({ item, index, compact = false }) {
+function Row({ item, index }) {
   return (
-    <div
-      className={`border-t border-[#D7E2EA]/15 ${
-        compact ? 'py-4 sm:py-5 md:py-6 [@media(max-height:820px)]:py-3' : 'py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-3'
-      }`}
-    >
+    <div className="border-t border-[#D7E2EA]/15 py-8 sm:py-10 md:py-12 [@media(max-height:1055px)]:py-3">
       <div className="flex items-start justify-between gap-6 flex-wrap md:flex-nowrap">
         <div className="flex items-start gap-4 sm:gap-6">
-          <span
-            className={`font-black leading-none text-[#D7E2EA]/35 ${
-              compact
-                ? 'text-[clamp(1.8rem,4.5vw,72px)] [@media(max-height:820px)]:text-[clamp(1.6rem,6vw,80px)]'
-                : 'text-[clamp(3rem,10vw,140px)] [@media(max-height:820px)]:text-[clamp(1.8rem,7vw,96px)]'
-            }`}
-          >
+          <span className="font-black leading-none text-[#D7E2EA]/35 text-[clamp(3rem,10vw,140px)] [@media(max-height:1055px)]:text-[clamp(1.8rem,7vw,96px)]">
             {String(index + 1).padStart(2, '0')}
           </span>
           <div className="flex flex-col gap-1 pt-2">
-            <h3
-              className={`font-medium uppercase tracking-wide text-[#D7E2EA] ${
-                compact
-                  ? 'text-[clamp(0.9rem,1.8vw,1.5rem)]'
-                  : 'text-[clamp(1rem,2.2vw,2.1rem)] [@media(max-height:820px)]:text-[clamp(0.85rem,2vw,1.6rem)]'
-              }`}
-            >
+            <h3 className="font-medium uppercase tracking-wide text-[#D7E2EA] text-[clamp(1rem,2.2vw,2.1rem)] [@media(max-height:1055px)]:text-[clamp(0.85rem,2vw,1.6rem)]">
               {item.company}
             </h3>
             <div className="flex flex-wrap items-center gap-2">
-              <span
-                className={`text-[#D7E2EA]/90 font-normal uppercase tracking-wider ${
-                  compact
-                    ? 'text-[clamp(0.62rem,1vw,0.8rem)]'
-                    : 'text-[clamp(0.7rem,1.2vw,0.95rem)]'
-                }`}
-              >
+              <span className="text-[#D7E2EA]/90 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
                 {item.rank}
               </span>
-              <span
-                className={`text-[#D7E2EA]/85 font-normal uppercase tracking-wider ${
-                  compact
-                    ? 'text-[clamp(0.62rem,1vw,0.8rem)]'
-                    : 'text-[clamp(0.7rem,1.2vw,0.95rem)]'
-                }`}
-              >
+              <span className="text-[#D7E2EA]/85 font-normal uppercase tracking-wider text-[clamp(0.7rem,1.2vw,0.95rem)]">
                 {item.role}
               </span>
             </div>
           </div>
         </div>
-        <span
-          className={`text-[#D7E2EA]/95 font-normal uppercase tracking-wider whitespace-nowrap max-sm:w-full ${
-            compact
-              ? 'text-[clamp(0.62rem,1vw,0.8rem)] pt-2'
-              : 'text-[clamp(0.7rem,1.2vw,0.95rem)] pt-2'
-          }`}
-        >
+        <span className="text-[#D7E2EA]/95 font-normal uppercase tracking-wider whitespace-nowrap max-sm:w-full text-[clamp(0.7rem,1.2vw,0.95rem)] pt-2">
           {item.period}
         </span>
       </div>
-      <p
-        className={`text-[#D7E2EA]/95 font-normal max-w-2xl ${
-          compact
-            ? 'text-[clamp(0.7rem,1.2vw,0.9rem)] leading-normal mt-3 [@media(max-height:820px)]:text-[clamp(0.6rem,1vw,0.8rem)]'
-            : 'leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:text-[clamp(0.72rem,1.4vw,1rem)] [@media(max-height:820px)]:leading-normal'
-        }`}
-      >
+      <p className="text-[#D7E2EA]/95 font-normal max-w-2xl leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:1055px)]:mt-3 [@media(max-height:1055px)]:text-[clamp(0.6rem,1.2vw,0.85rem)] [@media(max-height:1055px)]:leading-normal">
         {item.description}
       </p>
     </div>
   );
 }
 
-/**
- * 单张漂移照片：在各自的进度窗口内自下而上滑过视窗，首张起始静止、
- * 末张结束后停留在带内等待解锁；不可见时不拦截点击。
- */
 function DriftPhoto({ photo, lang, index, total, side, progress, onOpen }) {
   const [clicked, setClicked] = useState(false);
   const timers = useRef([]);
@@ -233,15 +189,15 @@ export default function Timeline({ t, lang }) {
           <div className={`relative overflow-hidden ${reduce ? '' : 'h-[calc(100dvh-84px)] sm:h-[calc(100dvh-92px)] max-[340px]:h-auto'}`}>
             <div className={`relative z-10 max-w-5xl mx-auto ${reduce ? '' : 'h-full flex flex-col justify-between max-[340px]:h-auto'}`}>
               <FadeIn y={30} delay={0}>
-                <Row item={second} index={1} compact />
+                <Row item={second} index={1} />
               </FadeIn>
               <FadeIn y={30} delay={0.05}>
-                <Row item={third} index={2} compact />
+                <Row item={third} index={2} />
               </FadeIn>
               {/* 移动端三行英文描述放不进视口：04 在移动端回到正常文档流 */}
               <div className="hidden sm:block">
                 <FadeIn y={30} delay={0.1}>
-                  <Row item={fourth} index={3} compact />
+                  <Row item={fourth} index={3} />
                 </FadeIn>
               </div>
             </div>

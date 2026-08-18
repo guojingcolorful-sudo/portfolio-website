@@ -243,9 +243,15 @@ export default function Skills({ t }) {
     }
     // 暂停条件①：区块基本滚出视口上方（项目区滑到置顶导航下方，含区块间负边距重叠）
     // 暂停条件②：能力模型第二部分（六类能力网格）顶部滑到置顶导航下方
+    // 暂停条件③：能力模型第一部分（内容行）底部滑到置顶导航下方
     const grid = sectionRef.current?.querySelector('.grid');
     const gridTop = grid ? grid.getBoundingClientRect().top : Infinity;
-    setScrollPaused(startedRef.current && (v >= 0.9 || (v > 0 && gridTop <= 96)));
+    const part1 = sectionRef.current?.querySelector('[data-part="first"]');
+    const part1Bottom = part1 ? part1.getBoundingClientRect().bottom : -Infinity;
+    setScrollPaused(
+      startedRef.current &&
+        (v >= 0.9 || (v > 0 && gridTop <= 96) || (v > 0 && part1Bottom <= 96))
+    );
   });
   const cyclePaused = paused || scrollPaused;
 
@@ -296,8 +302,9 @@ export default function Skills({ t }) {
         </h2>
       </FadeIn>
 
-      {/* 内容行：左面板（引用 ↔ 发光卡片自动切换）+ 雷达图；悬停整行暂停轮播 */}
+      {/* 内容行（第一部分）：左面板（引用 ↔ 发光卡片自动切换）+ 雷达图；悬停整行暂停轮播 */}
       <div
+        data-part="first"
         className="flex flex-col gap-14 lg:flex-row lg:items-start lg:gap-10"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -306,9 +313,13 @@ export default function Skills({ t }) {
         <CircleDiagram categories={categories} active={active} onActivate={setActive} />
       </div>
 
-      {/* 原文三件套：仅在引用态（未展示卡片）时显示 */}
+      {/* 能力网格（第二部分）：仅在引用态（未展示卡片）时显示；悬停网格暂停轮播 */}
       {active === -1 && (
-        <div className="mt-20 sm:mt-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12 max-w-7xl mx-auto">
+        <div
+          className="mt-20 sm:mt-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12 max-w-7xl mx-auto"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           {categories.map((cat, i) => (
             <FadeIn key={cat.name} y={20} delay={i * 0.06}>
               <div className="border-t border-[#D7E2EA]/15 pt-5">

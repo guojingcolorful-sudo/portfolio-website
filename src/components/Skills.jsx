@@ -223,6 +223,7 @@ function LeftPanel({ t, categories, active }) {
 export default function Skills({ t }) {
   const [active, setActive] = useState(-1);
   const [paused, setPaused] = useState(false);
+  const [scrollPaused, setScrollPaused] = useState(false);
   const [phase, setPhase] = useState('idle'); // idle | intro | cycle | rest
   const startedRef = useRef(false);
   const sectionRef = useRef(null);
@@ -232,7 +233,7 @@ export default function Skills({ t }) {
   // 区块刚进入视口即视为「滑到能力模型」（只触发一次）
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start end', 'start start'],
+    offset: ['start end', 'end start'],
   });
 
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
@@ -240,11 +241,14 @@ export default function Skills({ t }) {
       startedRef.current = true;
       setPhase('intro');
     }
+    // 区块基本滚出视口上方（项目区滑到置顶导航下方，含区块间负边距重叠）→ 暂停轮播；滚回则恢复
+    setScrollPaused(startedRef.current && v >= 0.9);
   });
+  const cyclePaused = paused || scrollPaused;
 
   // 轮播状态机：intro 3s 后开播；cycle 阶段 1.5s 换卡，一轮结束进入 rest；rest 2s 后进入下一轮
   useEffect(() => {
-    if (reduce || paused || phase === 'idle') return undefined;
+    if (reduce || cyclePaused || phase === 'idle') return undefined;
     if (phase === 'intro') {
       const id = setTimeout(() => {
         setPhase('cycle');
@@ -275,7 +279,7 @@ export default function Skills({ t }) {
       setActive(0);
     }, REST_MS);
     return () => clearTimeout(id);
-  }, [reduce, paused, phase, categories.length]);
+  }, [reduce, cyclePaused, phase, categories.length]);
 
   return (
     <section

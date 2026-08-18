@@ -15,7 +15,7 @@ export default function About({ t }) {
 
       <div className="flex flex-col items-center gap-16 sm:gap-20 md:gap-24">
         <FadeIn y={20} delay={0.05}>
-          <p className="text-[#D7E2EA] font-medium leading-relaxed max-w-[560px] text-[clamp(1rem,2vw,1.35rem)] whitespace-pre-line">
+          <p className="text-[#D7E2EA] font-medium leading-relaxed max-w-[520px] text-[clamp(1rem,2vw,1.35rem)] whitespace-pre-line">
             {t.about.desc}
           </p>
         </FadeIn>

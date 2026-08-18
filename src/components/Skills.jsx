@@ -187,7 +187,7 @@ function LeftPanel({ t, categories, active }) {
               <GlitchBlocks />
             </FadeIn>
             <div className="min-w-0 max-w-[420px]">
-              <span className="block text-[#b8c4d0] font-serif leading-[0.7] text-[3.2rem]">“</span>
+              <span className="block text-[#b8c4d0] leading-[0.7] text-[3.2rem]">“</span>
               <p className="text-[#D7E2EA]/90 font-normal leading-[1.58] text-[clamp(1.05rem,1.5vw,1.28rem)]">
                 {t.skills.quote}
               </p>

@@ -1,4 +1,5 @@
 import { CONFIG } from '../data/content';
+import { X, Mail, Download, ArrowUpRight, MessageCircle } from 'lucide-react';
 import FadeIn from './ui/FadeIn';
 import ContactButton from './ui/ContactButton';
 import GhostButton from './ui/GhostButton';
@@ -26,10 +27,18 @@ export default function Footer({ t, showWechat, onToggleWechat }) {
 
         <FadeIn y={20} delay={0.2}>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-4 flex-wrap">
-            <ContactButton href={`mailto:${CONFIG.email}`}>{t.footer.email}</ContactButton>
-            <GhostButton href={CONFIG.resumeLink}>{t.footer.download}</GhostButton>
-            <GhostButton href={CONFIG.linkedin}>{t.footer.linkedin}</GhostButton>
-            <GhostButton onClick={onToggleWechat}>{t.footer.wechat}</GhostButton>
+            <ContactButton href={`mailto:${CONFIG.email}`} icon={<Mail size={16} strokeWidth={1.5} />}>
+              {t.footer.email}
+            </ContactButton>
+            <GhostButton href={CONFIG.resumeLink} icon={<Download size={16} strokeWidth={1.5} />}>
+              {t.footer.download}
+            </GhostButton>
+            <GhostButton href={CONFIG.linkedin} icon={<ArrowUpRight size={16} strokeWidth={1.5} />}>
+              {t.footer.linkedin}
+            </GhostButton>
+            <GhostButton onClick={onToggleWechat} icon={<MessageCircle size={16} strokeWidth={1.5} />}>
+              {t.footer.wechat}
+            </GhostButton>
           </div>
         </FadeIn>
 
@@ -54,9 +63,9 @@ export default function Footer({ t, showWechat, onToggleWechat }) {
               type="button"
               onClick={onToggleWechat}
               aria-label="Close"
-              className="absolute top-4 right-4 text-[#D7E2EA]/60 hover:text-[#D7E2EA]"
+              className="absolute top-4 right-4 text-[#D7E2EA]/60 hover:text-[#D7E2EA] transition-colors duration-200"
             >
-              ✕
+              <X size={20} strokeWidth={1.5} />
             </button>
             <div className="text-center">
               <div className="text-xl font-bold mb-2 text-[#D7E2EA]">{t.wechatModal.title}</div>

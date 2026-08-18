@@ -7,7 +7,11 @@ import {
   useScroll,
 } from 'framer-motion';
 import { CONFIG } from '../data/content';
+import { PencilRuler, BarChart3, TrendingUp, ClipboardList, Wrench, Award } from 'lucide-react';
 import FadeIn from './ui/FadeIn';
+
+// 六类能力对应的开源图标（lucide，细描边与全局一致）
+const CATEGORY_ICONS = [PencilRuler, BarChart3, TrendingUp, ClipboardList, Wrench, Award];
 
 const ANGLE = [-90, -30, 30, 90, 150, 210]; // 6 个标签角度（顺时针均匀分布）
 const R_LINE = 36;
@@ -302,10 +306,13 @@ export default function Skills({ t }) {
       {/* 原文三件套：仅在引用态（未展示卡片）时显示 */}
       {active === -1 && (
         <div className="mt-20 sm:mt-24 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-12 max-w-7xl mx-auto">
-          {categories.map((cat, i) => (
+          {categories.map((cat, i) => {
+            const CategoryIcon = CATEGORY_ICONS[i] || Wrench;
+            return (
             <FadeIn key={cat.name} y={20} delay={i * 0.06}>
               <div className="border-t border-[#D7E2EA]/15 pt-5">
-                <h3 className="font-medium uppercase tracking-wide text-[#D7E2EA] text-[clamp(1.05rem,1.8vw,1.35rem)] mb-4">
+                <h3 className="flex items-center gap-2.5 font-medium uppercase tracking-wide text-[#D7E2EA] text-[clamp(1.05rem,1.8vw,1.35rem)] mb-4">
+                  <CategoryIcon size={20} strokeWidth={1.5} className="text-[#D7E2EA]/60" aria-hidden="true" />
                   {cat.name}
                 </h3>
                 <ul className="space-y-3.5">
@@ -324,7 +331,8 @@ export default function Skills({ t }) {
                 </ul>
               </div>
             </FadeIn>
-          ))}
+            );
+          })}
         </div>
       )}
     </section>

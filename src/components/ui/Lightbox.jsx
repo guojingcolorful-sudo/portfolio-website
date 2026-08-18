@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { X } from 'lucide-react';
 
 /**
  * 图片放大查看：点击遮罩或 ✕ 关闭，Esc 可关，打开时锁定页面滚动
@@ -35,9 +34,9 @@ export default function Lightbox({ item, onClose }) {
         type="button"
         aria-label="Close"
         onClick={onClose}
-        className="absolute top-5 right-6 text-white/70 hover:text-white transition-colors duration-200 cursor-pointer"
+        className="absolute top-5 right-6 text-white/70 hover:text-white text-3xl leading-none cursor-pointer"
       >
-        <X size={30} strokeWidth={1.5} />
+        ✕
       </button>
       <img
         src={item.full || item.img}

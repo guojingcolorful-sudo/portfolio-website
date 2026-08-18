@@ -5,7 +5,6 @@
 :root {
   --bg: #0c0c0c;
   --text-soft: #d7e2ea;
-  --focus-ring: rgba(215, 226, 234, 0.7);
   --heading-gradient: linear-gradient(180deg, #8a94a2 0%, #bbccd7 100%);
   --cta-gradient: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%);
 }
@@ -24,7 +23,7 @@ html {
 
   /* 全局可见焦点环（web-design-guidelines） */
   :focus-visible {
-    outline: 2px solid var(--focus-ring);
+    outline: 2px solid rgba(215, 226, 234, 0.7);
     outline-offset: 2px;
   }
 

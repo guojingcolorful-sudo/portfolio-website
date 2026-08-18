@@ -5,15 +5,11 @@ import FadeIn from './ui/FadeIn';
 import Lightbox from './ui/Lightbox';
 
 /**
- * 职业履历（保留原始标题与文字大小/位置）+ 02-03 固定视窗照片序列（参考 Michael Smith 逻辑）：
- * - 当「02 阳光」文字到达屏幕顶部：页面钉住，仅静态呈现左 1 / 右 1 张照片
- * - 继续向下滚动：02-03 文字保持不变，所有照片在「02 顶部 → 03 底部」高度带内
- *   依次自下而上滑动呈现（右列节奏更快形成纵深），照片可点击放大、悬停放大
- * - 全部照片呈现完毕后解锁，文字继续滚动到「04」；向上滚动全程倒放
+ * 职业履历（保留原始标题与文字大小/位置）+ 照片漂移层：
+ * - 履历 01-04 保持正常文档流，03 与 04 之间无任何间隔
+ * - 照片以块状两列浮于文字之上，随区块滚动依次自下而上滑过（右列更快形成纵深）
+ * - 照片可点击放大、悬停放大、圆弧光边；减弱动态时静态双列展示
  */
-
-// 钉住阶段的总滚动距离（照片序列长度）
-const PIN_SCROLL = 'h-[calc(100dvh+120vh)]';
 
 /** 履历单行（原始版式：编号 / 公司 / 职级 / 时间 / 描述，大小与间距不变） */
 function Row({ item, index }) {
@@ -155,10 +151,10 @@ function StaticPhoto({ photo, lang, onOpen }) {
 export default function Timeline({ t, lang }) {
   const [lightbox, setLightbox] = useState(null);
   const reduce = useReducedMotion();
-  const wrapRef = useRef(null);
+  const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: wrapRef,
-    offset: ['start start', 'end end'],
+    target: sectionRef,
+    offset: ['start end', 'end start'],
   });
   const items = t.timeline.items;
   const [first, second, third, fourth] = items;
@@ -166,7 +162,8 @@ export default function Timeline({ t, lang }) {
   return (
     <section
       id="timeline"
-      className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 scroll-mt-20"
+      ref={sectionRef}
+      className="relative bg-[#0C0C0C] px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 scroll-mt-20 overflow-hidden"
     >
       <FadeIn y={40} delay={0}>
         <h2 className="hero-heading font-black uppercase leading-none tracking-tight text-[clamp(3rem,12vw,160px)] mb-16 sm:mb-20 md:mb-28">
@@ -174,66 +171,53 @@ export default function Timeline({ t, lang }) {
         </h2>
       </FadeIn>
 
-      {/* 01：正常文档流 */}
+      {/* 照片漂移层：浮于履历文字之上，随区块滚动依次上滑（无钉住，无间隔） */}
+      {!reduce && (
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {DRIFT_PHOTOS.left.map((p, i) => (
+            <DriftPhoto
+              key={p.zh}
+              photo={p}
+              lang={lang}
+              index={i}
+              total={DRIFT_PHOTOS.left.length}
+              side="left"
+              progress={scrollYProgress}
+              onOpen={setLightbox}
+            />
+          ))}
+          {DRIFT_PHOTOS.right.map((p, i) => (
+            <DriftPhoto
+              key={p.zh}
+              photo={p}
+              lang={lang}
+              index={i}
+              total={DRIFT_PHOTOS.right.length}
+              side="right"
+              progress={scrollYProgress}
+              onOpen={setLightbox}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* 履历 01-04：正常文档流，无钉住 */}
       <div className="relative z-10 max-w-5xl mx-auto">
         <FadeIn y={30} delay={0}>
           <Row item={first} index={0} />
         </FadeIn>
-      </div>
-
-      {/* 02-03 固定视窗：钉住文字，照片在带内依次上滑 */}
-      <div ref={wrapRef} className={reduce ? 'relative' : `relative ${PIN_SCROLL}`}>
-        <div
-          className={
-            reduce
-              ? 'relative'
-              : 'sticky top-0 h-[100dvh] overflow-hidden pt-[84px] sm:pt-[92px]'
-          }
-        >
-          {/* 照片呈现带：02 顶部 → 03 底部，超出部分裁剪 */}
-          <div className="relative overflow-hidden">
-            <div className="relative z-10 max-w-5xl mx-auto">
-              <FadeIn y={30} delay={0}>
-                <Row item={second} index={1} />
-              </FadeIn>
-              <FadeIn y={30} delay={0.05}>
-                <Row item={third} index={2} />
-              </FadeIn>
-            </div>
-
-            {!reduce && (
-              <div className="absolute inset-0 z-20">
-                {DRIFT_PHOTOS.left.map((p, i) => (
-                  <DriftPhoto
-                    key={p.zh}
-                    photo={p}
-                    lang={lang}
-                    index={i}
-                    total={DRIFT_PHOTOS.left.length}
-                    side="left"
-                    progress={scrollYProgress}
-                    onOpen={setLightbox}
-                  />
-                ))}
-                {DRIFT_PHOTOS.right.map((p, i) => (
-                  <DriftPhoto
-                    key={p.zh}
-                    photo={p}
-                    lang={lang}
-                    index={i}
-                    total={DRIFT_PHOTOS.right.length}
-                    side="right"
-                    progress={scrollYProgress}
-                    onOpen={setLightbox}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+        <FadeIn y={30} delay={0.05}>
+          <Row item={second} index={1} />
+        </FadeIn>
+        <FadeIn y={30} delay={0.1}>
+          <Row item={third} index={2} />
+        </FadeIn>
+        <FadeIn y={30} delay={0.15}>
+          <Row item={fourth} index={3} />
+        </FadeIn>
 
         {reduce && (
-          <div className="relative z-10 max-w-5xl mx-auto grid grid-cols-2 gap-4 py-6">
+          <div className="grid grid-cols-2 gap-4 py-6">
             <div className="flex flex-col gap-4">
               {DRIFT_PHOTOS.left.map((p) => (
                 <StaticPhoto key={p.zh} photo={p} lang={lang} onOpen={setLightbox} />
@@ -246,13 +230,6 @@ export default function Timeline({ t, lang }) {
             </div>
           </div>
         )}
-      </div>
-
-      {/* 04：解锁后回到正常文档流 */}
-      <div className="relative z-10 max-w-5xl mx-auto">
-        <FadeIn y={30} delay={0}>
-          <Row item={fourth} index={3} />
-        </FadeIn>
       </div>
 
       {lightbox && <Lightbox item={lightbox} onClose={() => setLightbox(null)} />}

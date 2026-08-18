@@ -241,8 +241,11 @@ export default function Skills({ t }) {
       startedRef.current = true;
       setPhase('intro');
     }
-    // 区块基本滚出视口上方（项目区滑到置顶导航下方，含区块间负边距重叠）→ 暂停轮播；滚回则恢复
-    setScrollPaused(startedRef.current && v >= 0.9);
+    // 暂停条件①：区块基本滚出视口上方（项目区滑到置顶导航下方，含区块间负边距重叠）
+    // 暂停条件②：能力模型第二部分（六类能力网格）顶部滑到置顶导航下方
+    const grid = sectionRef.current?.querySelector('.grid');
+    const gridTop = grid ? grid.getBoundingClientRect().top : Infinity;
+    setScrollPaused(startedRef.current && (v >= 0.9 || (v > 0 && gridTop <= 96)));
   });
   const cyclePaused = paused || scrollPaused;
 

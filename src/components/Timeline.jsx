@@ -18,14 +18,14 @@ const PIN_SCROLL = 'h-[calc(100dvh+200vh)]';
 /** 履历单行（原始版式：编号 / 公司 / 职级 / 时间 / 描述，大小与间距不变） */
 function Row({ item, index }) {
   return (
-    <div className="border-t border-[#D7E2EA]/15 py-8 sm:py-10 md:py-12 [@media(max-height:820px)]:py-4">
+    <div className="border-t border-[#D7E2EA]/15 py-8 sm:py-10 md:py-12">
       <div className="flex items-start justify-between gap-6 flex-wrap md:flex-nowrap">
         <div className="flex items-start gap-4 sm:gap-6">
-          <span className="font-black leading-none text-[clamp(3rem,10vw,140px)] text-[#D7E2EA]/35 [@media(max-height:820px)]:text-[clamp(2.2rem,8vw,104px)]">
+          <span className="font-black leading-none text-[clamp(3rem,10vw,140px)] text-[#D7E2EA]/35">
             {String(index + 1).padStart(2, '0')}
           </span>
           <div className="flex flex-col gap-1 pt-2">
-            <h3 className="font-medium uppercase tracking-wide text-[clamp(1rem,2.2vw,2.1rem)] text-[#D7E2EA] [@media(max-height:820px)]:text-[clamp(0.85rem,2vw,1.6rem)]">
+            <h3 className="font-medium uppercase tracking-wide text-[clamp(1rem,2.2vw,2.1rem)] text-[#D7E2EA]">
               {item.company}
             </h3>
             <div className="flex flex-wrap items-center gap-2">
@@ -42,7 +42,7 @@ function Row({ item, index }) {
           {item.period}
         </span>
       </div>
-      <p className="mt-5 text-[#D7E2EA]/95 font-normal leading-relaxed max-w-2xl text-[clamp(0.85rem,1.6vw,1.25rem)] [@media(max-height:820px)]:mt-3 [@media(max-height:820px)]:text-[clamp(0.78rem,1.4vw,1rem)] [@media(max-height:820px)]:leading-normal">
+      <p className="mt-5 text-[#D7E2EA]/95 font-normal leading-relaxed max-w-2xl text-[clamp(0.85rem,1.6vw,1.25rem)]">
         {item.description}
       </p>
     </div>
@@ -187,7 +187,7 @@ export default function Timeline({ t, lang }) {
           className={
             reduce
               ? 'relative'
-              : 'sticky top-0 h-[100dvh] overflow-hidden pt-16 sm:pt-20 [@media(max-height:820px)]:pt-12'
+              : 'sticky top-0 h-[100dvh] overflow-hidden pt-16 sm:pt-20'
           }
         >
           {/* 照片呈现带：02 顶部 → 03 底部，超出部分裁剪 */}

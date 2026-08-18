@@ -360,7 +360,7 @@ export const DICT = {
           situation: 'Insurance products were highly commoditized, users were resistant to traditional sales approaches, and acquisition costs were high.',
           methodology: 'Leveraged content marketing to build trust through original educational content, converting readers via Official Account read-to-purchase flow.',
           action: 'Created original insurance marketing articles, optimized content topics and publishing cadence to continuously improve reach and conversion.',
-          result: 'Generated 900+ orders and 400+ paid conversions, marketing revenue reaching 4.58% of same-period premium, with a single article hitting 35K+ views.',
+          result: 'Generated 900+ orders and 400+ paid conversions, single article reaching 35K+ views.',
           timing: 'Ran 17 campaigns over a two-year tenure; SMS revenue grew 61.8x within 6 months.',
         },
       ],
@@ -428,8 +428,7 @@ export const DICT = {
       ],
     },
     footer: {
-      title: 'Looking forward to co-creating',
-      titleHighlight: 'impactful products',
+      titleHighlight: 'impactful',
       subtitle: 'Open for Senior/Lead Product Management and Growth roles globally.',
       email: 'Email Me',
       download: 'Download Resume',

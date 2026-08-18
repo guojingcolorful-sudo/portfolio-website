@@ -41,7 +41,7 @@ function Row({ item, index }) {
           {item.period}
         </span>
       </div>
-      <p className="text-[#D7E2EA]/95 font-normal max-w-2xl leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:1055px)]:mt-3 [@media(max-height:1055px)]:text-[clamp(0.6rem,1.2vw,0.85rem)] [@media(max-height:1055px)]:leading-normal">
+      <p className="text-[#D7E2EA]/95 font-normal max-w-2xl leading-relaxed text-[clamp(0.85rem,1.6vw,1.25rem)] mt-5 [@media(max-height:1055px)]:mt-3 [@media(max-height:1055px)]:text-[clamp(0.6rem,1.2vw,0.85rem)] [@media(max-height:1055px)]:leading-relaxed">
         {item.description}
       </p>
     </div>

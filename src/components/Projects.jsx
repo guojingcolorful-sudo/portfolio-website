@@ -17,7 +17,7 @@ function SmartBlock({ project, size = 'compact' }) {
   return (
     <div
       className={`grid grid-cols-1 sm:grid-cols-2 ${
-        isLg ? 'gap-x-8 md:gap-x-14 gap-y-3 sm:gap-y-6 md:gap-y-7' : 'gap-x-8 gap-y-3'
+        isLg ? 'gap-x-8 md:gap-x-14 gap-y-3 sm:gap-y-6 md:gap-y-6' : 'gap-x-8 gap-y-3'
       }`}
     >
       {rows.map((row) => (
@@ -42,7 +42,7 @@ function SmartBlock({ project, size = 'compact' }) {
       ))}
       {project.timing && (
         <div
-          className={`sm:col-span-2 flex items-start border-t border-[#D7E2EA]/10 pt-3 sm:pt-4 ${
+          className={`sm:col-span-2 flex items-start border-t border-[#D7E2EA]/10 pt-3 ${
             isLg ? 'gap-4 md:gap-6' : 'gap-3'
           }`}
         >

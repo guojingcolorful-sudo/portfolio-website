@@ -15,3 +15,7 @@ touxiang2.png
 English.png
 zine-*.html
 zine-*.png
+
+# Private images (never push)
+fangzi*.png
+fangzi*.jpg

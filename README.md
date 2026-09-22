@@ -1,30 +1,30 @@
 # Portfolio Website
 
-个人作品集网站（React + Vite）：展示个人项目与作品的多屏滚动作品集站点。
+A personal portfolio site (React + Vite): a multi-section scrolling portfolio showcasing personal projects and work.
 
-## 快速开始
+## Quick Start
 
 ```bash
 npm install
-npm run dev       # 本地开发
-npm run build     # 生产构建
-npm run preview   # 预览构建产物
+npm run dev       # local development
+npm run build     # production build
+npm run preview   # preview the production build
 ```
 
-## 技术栈
+## Tech Stack
 
 - React + Vite
-- 响应式布局（全视口自适应，窄屏回退普通流）
+- Fully responsive (viewport-adaptive layouts, plain-flow fallback on narrow screens)
 
-## 结构
+## Layout
 
 ```
 src/
-├── data/      站点内容（作品、项目信息）
-├── components/ 页面组件
-└── App.jsx     页面骨架
+├── data/       site content (projects and work entries)
+├── components/ page components
+└── App.jsx     page skeleton
 ```
 
-## 隐私
+## Privacy
 
-站点内容均为本人作品的公开展示；请勿提交包含个人敏感信息的文件（如未发布的截图、证件、合同等）。
+Site content is a public showcase of the author's own work. Never commit files containing private information (unpublished screenshots, ID documents, contracts, etc.) — such files are gitignored.

@@ -1,16 +1,30 @@
-# React + Vite
+# Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+个人作品集网站（React + Vite）：展示个人项目与作品的多屏滚动作品集站点。
 
-Currently, two official plugins are available:
+## 快速开始
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev       # 本地开发
+npm run build     # 生产构建
+npm run preview   # 预览构建产物
+```
 
-## React Compiler
+## 技术栈
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + Vite
+- 响应式布局（全视口自适应，窄屏回退普通流）
 
-## Expanding the ESLint configuration
+## 结构
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── data/      站点内容（作品、项目信息）
+├── components/ 页面组件
+└── App.jsx     页面骨架
+```
+
+## 隐私
+
+站点内容均为本人作品的公开展示；请勿提交包含个人敏感信息的文件（如未发布的截图、证件、合同等）。
